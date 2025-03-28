@@ -1,6 +1,9 @@
 <template>
   <div>
-    <CategoryListDataView :categories="categories!" />
+    <CategoryListDataView
+      :categories="rootCategories"
+      @delete="onDeleteCategory"
+    />
     <section>
       <DevOnly>
         <NuxtLink :to="{ name: 'categories-create' }">
@@ -19,7 +22,7 @@
 import type { Category } from "~/types/categories"
 
 const runtimeConfig = useRuntimeConfig()
-const { data: categories } = await useFetch("/v1/accounting/categories/", {
+const { data: categories, refresh: refreshCategories } = await useFetch("/v1/accounting/categories/", {
   baseURL: runtimeConfig.public.apiBaseUrl,
   transform(data: { categories: Category[] }): Category[] {
     return data.categories
@@ -31,4 +34,15 @@ const rootCategories = computed((): Category[] => {
   if (!categories.value) return []
   return categories.value.filter((category) => category.parent_id === null)
 })
+
+const onDeleteCategory = async (categoryId: number) => {
+  await $fetch(`/v1/accounting/categories/${categoryId}/`, {
+    baseURL: runtimeConfig.public.apiBaseUrl,
+    method: "DELETE",
+    credentials: 'include',
+    async onResponse({ response }) {
+      await refreshCategories()
+    }
+  })
+}
 </script>
