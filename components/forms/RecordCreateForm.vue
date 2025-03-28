@@ -38,6 +38,19 @@
           $field.error?.message
         }}</Message>
       </FormField>
+      <FormField
+        name="description"
+        v-slot="$field"
+        class="flex flex-col gap-y-1"
+      >
+        <FloatLabel variant="on">
+          <InputText fluid />
+          <label for="on_label">Описание</label>
+        </FloatLabel>
+        <Message v-if="$field.invalid" variant="simple" severity="error">{{
+          $field.error?.message
+        }}</Message>
+      </FormField>
       <Button type="submit" label="Сохранить" fluid />
     </div>
   </Form>
@@ -74,6 +87,7 @@ const resolver = ref(
       amount: z
         .number({ message: "Введите сумму" })
         .positive({ message: "Сумма должна быть положительной" }),
+      description: z.string().max(1024).optional(),
     })
   )
 )
