@@ -1,16 +1,6 @@
 <template>
   <div>
-    <section v-if="rootCategories.length">
-      <h1 class="text-lg font-semibold">Категории</h1>
-      <ul>
-        <li v-for="category in rootCategories" :key="category.id">
-          
-        </li>
-      </ul>
-    </section>
-    <Message v-else icon="pi pi-exclamation-triangle" severity="info" class="mb-4"
-      >У вас нет категорий</Message
-    >
+    <CategoryListDataView :categories="categories!" />
     <section>
       <DevOnly>
         <NuxtLink :to="{ name: 'categories-create' }">
