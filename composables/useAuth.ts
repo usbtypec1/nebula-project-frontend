@@ -5,7 +5,7 @@ export const useAuth = () => {
     await $fetch("/auth/token/", {
       baseURL: runtimeConfig.public.apiBaseUrl,
       method: "POST",
-      query: { init_data: initData },
+      body: { init_data: initData },
       credentials: "include",
     })
   }
