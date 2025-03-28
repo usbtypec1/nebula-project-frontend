@@ -22,7 +22,12 @@
               </p>
               <div class="flex gap-x-2">
                 <Button icon="pi pi-file-edit" text />
-                <Button icon="pi pi-trash" severity="danger" text />
+                <Button
+                  icon="pi pi-trash"
+                  severity="danger"
+                  text
+                  @click="emit('delete', category.id)"
+                />
               </div>
             </div>
           </div>
@@ -34,6 +39,10 @@
 
 <script setup lang="ts">
 import type { Category } from "~/types/categories"
+
+const emit = defineEmits<{
+  delete: [id: number]
+}>()
 
 const props = defineProps<{
   categories: Category[]
