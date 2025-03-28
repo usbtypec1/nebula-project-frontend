@@ -9,19 +9,8 @@ const { initData } = useWebApp()
 
 const { login } = useAuth()
 
-// onMounted(async () => {
-//   await login(initData)
-//   console.log(status.value)
-//   if (status.value === "success") {
-//     await navigateTo({ name: "index" })
-//   } else if (status.value === "error") {
-//     await navigateTo({ name: "auth-failed" })
-//   }
-// })
-
-
 onMounted(async () => {
-  await login(896678539)
+  await login(initData)
   await navigateTo({ name: "index" })
 })
 </script>

@@ -1,11 +1,11 @@
 export const useAuth = () => {
   const runtimeConfig = useRuntimeConfig()
 
-  const login = async (telegramId: number) => {
-    await $fetch("/auth/token/test", {
+  const login = async (initData: string) => {
+    await $fetch("/auth/token/", {
       baseURL: runtimeConfig.public.apiBaseUrl,
       method: "POST",
-      query: { telegram_id: telegramId },
+      query: { init_data: initData },
       credentials: "include",
     })
   }
