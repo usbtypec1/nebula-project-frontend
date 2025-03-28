@@ -32,5 +32,17 @@ const items: Item[] = [
     severity: "help",
     action: async () => await navigateTo({ name: "accounts" }),
   },
+  {
+    label: "История",
+    icon: "pi pi-clock",
+    severity: "secondary",
+    action: async () => await navigateTo({ name: "accounts" }),
+  },
+  {
+    label: "Импорт/экспорт",
+    icon: "pi pi-save",
+    severity: "contrast",
+    action: async () => await navigateTo({ name: "accounts" }),
+  },
 ]
 </script>
