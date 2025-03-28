@@ -1,5 +1,7 @@
 <template>
-  <div>Аутентификация...</div>
+  <div class="flex justify-center mt-12">
+    <ProgressSpinner />
+  </div>
 </template>
 
 <script setup lang="ts">
