@@ -14,6 +14,7 @@
         </Card>
       </section>
       <SettingsMenubar />
+      
     </section>
     <section>
       <DevOnly>
@@ -41,4 +42,5 @@ const { data: accountsResponse } = await useFetch<AccountsResponse>(
     credentials: "include",
   }
 )
+
 </script>

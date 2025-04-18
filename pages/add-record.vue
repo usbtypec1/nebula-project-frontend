@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { BackButton } from "vue-tg";
+import { BackButton } from "vue-tg"
 import type { Category } from "~/types/categories"
 
 const runtimeConfig = useRuntimeConfig()

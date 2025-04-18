@@ -87,7 +87,10 @@ const resolver = ref(
       amount: z
         .number({ message: "Введите сумму" })
         .positive({ message: "Сумма должна быть положительной" }),
-      description: z.string().max(1024).optional(),
+      description: z
+        .string({ message: "Введите описание" })
+        .max(1024)
+        .optional(),
     })
   )
 )

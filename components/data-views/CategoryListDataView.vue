@@ -17,9 +17,12 @@
         <div class="flex flex-col divide-solid divide-y-2">
           <div v-for="category in items" :key="category.id">
             <div class="flex items-center justify-between py-3">
-              <p class="text-lg font-semibold flex items-center gap-x-1">
-                {{ category.name }}
-              </p>
+              <div>
+                <p class="text-lg font-semibold flex items-center gap-x-1">
+                  {{ category.name }}
+                </p>
+                <Tag :value="category.type"/>
+              </div>
               <div class="flex gap-x-2">
                 <Button icon="pi pi-file-edit" text />
                 <Button
