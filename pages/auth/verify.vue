@@ -12,7 +12,12 @@ const { initData } = useWebApp()
 const { login } = useAuth()
 
 onMounted(async () => {
-  await login(initData)
-  await navigateTo({ name: "index" })
+  try {
+    await login(initData)
+    await navigateTo({ name: "index" })
+
+  } catch (error) {
+    await navigateTo({ name: "auth-failed" })
+  }
 })
 </script>

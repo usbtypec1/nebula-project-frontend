@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-x-2">
+  <div class="grid grid-cols-2 gap-2">
     <Button
       v-for="item in items"
       :key="item.label"
@@ -41,7 +41,7 @@ const items: Item[] = [
   {
     label: "Импорт/экспорт",
     icon: "pi pi-save",
-    severity: "contrast",
+    severity: "success",
     action: async () => await navigateTo({ name: "accounts" }),
   },
 ]
