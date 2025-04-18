@@ -15,6 +15,8 @@
       </section>
       <SettingsMenubar />
       
+      <IncomeExpenseChart/>
+
     </section>
     <section>
       <DevOnly>
