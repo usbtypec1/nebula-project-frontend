@@ -9,12 +9,13 @@
         <Button label="Создать категорию" fluid />
       </NuxtLink>
     </section>
+    <BackButton @click="navigateTo({ name: 'index' })" />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Category } from "~/types/categories"
-import { useWebAppPopup } from "vue-tg";
+import { useWebAppPopup, BackButton } from "vue-tg";
 
 const { showAlert } = useWebAppPopup()
 
