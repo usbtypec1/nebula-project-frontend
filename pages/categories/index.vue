@@ -9,11 +9,11 @@
         <Button label="Создать категорию" fluid />
       </NuxtLink>
     </section> -->
-      <div class="overflow-x-auto whitespace-nowrap px-4 py-2">
+    <div class="overflow-y-auto max-h-[80vh] px-4 py-2">
     <draggable
       v-model="menuItems"
       tag="div"
-      class="inline-flex space-x-4"
+      class="flex flex-col space-y-4 items-center"
       item-key="name"
       :animation="200"
     >
@@ -34,7 +34,9 @@
 </template>
 
 <script setup lang="ts">
+import draggable from 'vuedraggable'
 import { ShoppingCart, Car, Candy, Smartphone, Home, Heart, Shirt, Gift, PiggyBank } from 'lucide-vue-next'
+
 
 const menuItems = ref([
   { name: 'Groceries', icon: ShoppingCart, color: 'bg-teal-600', amount: 'сом 2 373' },
@@ -47,7 +49,6 @@ const menuItems = ref([
   { name: 'Clothes', icon: Shirt, color: 'bg-pink-300', amount: 'сом 2 300' },
   { name: 'Gift', icon: Gift, color: 'bg-green-400', amount: 'сом 0' }
 ])
-
 // import type { Category } from "~/types/categories"
 
 // const runtimeConfig = useRuntimeConfig()
