@@ -21,7 +21,8 @@
                 <p class="text-lg font-semibold flex items-center gap-x-1">
                   {{ category.name }}
                 </p>
-                <Tag :value="category.type"/>
+                <Tag value="Расход" v-if="category.type === CategoryType.Expense" severity="danger"/>
+                <Tag value="Доход" v-if="category.type === CategoryType.Income" severity="success"/>
               </div>
               <div class="flex gap-x-2">
                 <Button icon="pi pi-file-edit" text />
@@ -41,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Category } from "~/types/categories"
+import { CategoryType, type Category } from "~/types/categories"
 
 const emit = defineEmits<{
   delete: [id: number]

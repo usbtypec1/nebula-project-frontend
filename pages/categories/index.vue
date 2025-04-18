@@ -14,6 +14,9 @@
 
 <script setup lang="ts">
 import type { Category } from "~/types/categories"
+import { useWebAppPopup } from "vue-tg";
+
+const { showAlert } = useWebAppPopup()
 
 const runtimeConfig = useRuntimeConfig()
 const { data: categories, refresh: refreshCategories } = await useFetch(
@@ -38,7 +41,11 @@ const onDeleteCategory = async (categoryId: number) => {
     method: "DELETE",
     credentials: "include",
     async onResponse({ response }) {
-      await refreshCategories()
+      if (!response.ok) {
+        showAlert("Не удалось удалить категорию")
+      } else {
+        await refreshCategories()
+      }
     },
   })
 }
