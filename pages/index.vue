@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-y-4 justify-between h-full">
     <section class="flex flex-col gap-y-4">
-      <section class="grid grid-cols-2 gap-x-3">
+      <section class="grid grid-cols-2 gap-3">
         <Card
           v-for="account in accountsResponse!.accounts"
           :header="account.name"
@@ -14,9 +14,12 @@
         </Card>
       </section>
       <SettingsMenubar />
-      
-      <IncomeExpenseChart/>
 
+      <div class="flex flex-col gap-y-4">
+        <h4 class="font-semibold">Статистика</h4>
+        <IncomeExpenseChart />
+        <ExpensesByCategoryChart />
+      </div>
     </section>
     <section>
       <DevOnly>
@@ -33,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { MainButton } from "vue-tg";
+import { MainButton } from "vue-tg"
 import type { AccountsResponse } from "~/types/accounts"
 
 const runtimeConfig = useRuntimeConfig()
@@ -44,5 +47,4 @@ const { data: accountsResponse } = await useFetch<AccountsResponse>(
     credentials: "include",
   }
 )
-
 </script>
