@@ -1,14 +1,17 @@
 <template>
-  <div class="grid grid-cols-2 gap-x-2">
-    <Button
-      v-for="item in items"
-      :key="item.label"
-      outlined
-      :label="item.label"
-      :icon="item.icon"
-      :severity="item.severity"
-      @click="item.action"
-    />
+  <div class="overflow-x-auto">
+    <div class="flex gap-x-2 w-max">
+      <Button
+        v-for="item in items"
+        :key="item.label"
+        outlined
+        icon-pos="top"
+        :label="item.label"
+        :icon="item.icon"
+        :severity="item.severity"
+        @click="item.action"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,7 +26,7 @@ const items: Item[] = [
   {
     label: "Категории",
     icon: "pi pi-bars",
-    severity: "info",
+    severity: "success",
     action: async () => await navigateTo({ name: "categories" }),
   },
   {
@@ -46,3 +49,13 @@ const items: Item[] = [
   },
 ]
 </script>
+
+<style scoped>
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+</style>
