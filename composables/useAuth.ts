@@ -10,5 +10,14 @@ export const useAuth = () => {
     })
   }
 
-  return { login }
+  const loginTest = async (userId: number) => {
+    await $fetch("/auth/token/", {
+      baseURL: runtimeConfig.public.apiBaseUrl,
+      method: "POST",
+      body: { user_id: userId },
+      credentials: "include",
+    })
+  }
+
+  return { login, loginTest }
 }

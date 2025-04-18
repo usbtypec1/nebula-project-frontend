@@ -9,10 +9,11 @@ import { useWebApp } from "vue-tg"
 
 const { initData } = useWebApp()
 
-const { login } = useAuth()
+const { login, loginTest } = useAuth()
 
 onMounted(async () => {
-  await login(initData)
-  await navigateTo({ name: "index" })
+  // await login(initData)
+  // await loginTest(7525893335)
+  // await navigateTo({ name: "index" })
 })
 </script>

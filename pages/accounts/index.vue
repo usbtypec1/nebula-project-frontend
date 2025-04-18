@@ -5,9 +5,9 @@
       @delete="onDeleteAccount"
     />
     <section>
-      <!-- <NuxtLink :to="{ name: 'categories-create' }">
-        <Button label="Создать категорию" fluid />
-      </NuxtLink> -->
+      <NuxtLink :to="{ name: 'accounts-create' }">
+        <Button label="Создать аккаунт" fluid />
+      </NuxtLink>
     </section>
     <BackButton @click="navigateTo({ name: 'index' })" />
   </div>

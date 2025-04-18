@@ -11,3 +11,8 @@ export interface AccountsResponse {
   accounts: Account[]
   total_balance: string
 }
+
+export interface AccountCreateEvent {
+  name: string
+  initialBalance: number
+}
