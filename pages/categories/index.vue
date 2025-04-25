@@ -1,14 +1,11 @@
 <template>
   <div>
-    <CategoryListDataView
-      :categories="rootCategories"
-      @delete="onDeleteCategory"
-    />
-    <section>
+    <CategoryCardList :categories="categories!" />
+    <PageSection>
       <NuxtLink :to="{ name: 'categories-create' }">
         <Button label="Создать категорию" fluid />
       </NuxtLink>
-    </section>
+    </PageSection>
     <BackButton @click="navigateTo({ name: 'index' })" />
   </div>
 </template>
