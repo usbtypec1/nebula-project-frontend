@@ -1,14 +1,22 @@
 <template>
-  <div>
+  <Dialog
+    v-model:visible="visible"
+    modal
+    header="Создать аккаунт"
+    :style="{ width: '25rem' }"
+  >
     <AccountCreateForm @submit="onSubmit" />
-    <BackButton @click="navigateTo({ name: 'categories' })" />
-  </div>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
-import { BackButton } from "vue-tg"
 import type { AccountCreateEvent } from "~/types/accounts"
 import { useWebAppPopup } from "vue-tg"
+
+const emit = defineEmits<{
+  created: []
+}>()
+const visible = defineModel<boolean>("visible", { default: false })
 
 const { showAlert } = useWebAppPopup()
 
@@ -24,7 +32,7 @@ const onSubmit = async (event: AccountCreateEvent) => {
     },
     async onResponse({ response }) {
       if (response.ok) {
-        await navigateTo({ name: "accounts" })
+        emit("created")
       } else {
         showAlert("Не удалось создать аккаунт")
       }

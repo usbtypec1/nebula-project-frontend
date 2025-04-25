@@ -7,8 +7,7 @@
     :validate-on-mount="false"
     @submit="onSubmit"
   >
-    <div class="flex flex-col gap-y-3">
-      <p class="text-lg font-semibold">Создать аккаунт</p>
+    <div class="flex flex-col gap-y-3 my-3">
       <FormField name="name" v-slot="$field" class="flex flex-col gap-y-1">
         <FloatLabel variant="on">
           <InputText input-id="name" fluid />
@@ -41,7 +40,7 @@
         :initial-value="false"
       >
         <div class="flex items-center gap-x-2">
-          <InputSwitch input-id="isPublic" />
+          <ToggleSwitch input-id="isPublic" />
           <label for="isPublic">Публичный аккаунт</label>
         </div>
         <Message v-if="$field.invalid" variant="simple" severity="error">{{

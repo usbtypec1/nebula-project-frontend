@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-x-auto">
-    <div class="flex gap-x-2 w-max">
+  <div class="overflow-x-auto scrollbar-hide">
+    <div class="flex gap-x-2 w-max scrollbar-hide">
       <Button
         v-for="item in items"
         :key="item.label"
@@ -51,11 +51,4 @@ const items: Item[] = [
 </script>
 
 <style scoped>
-.scrollbar-hide {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
 </style>

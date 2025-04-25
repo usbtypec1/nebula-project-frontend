@@ -1,5 +1,7 @@
 import { type RefreshResponse, type LoginResponse } from "~/types/auth"
 
+import type { UseFetchOptions } from "nuxt/app"
+
 export function useAuth() {
   const accessToken = useCookie<string | null>("access_token", {
     default: () => null,
@@ -49,4 +51,15 @@ export function useAuth() {
     refreshToken,
     isAuthenticated,
   }
+}
+
+export function useAuthorizedFetch<T>(
+  url: string | (() => string),
+  options?: UseFetchOptions<T>
+) {
+  const { $authorizedFetch } = useNuxtApp()
+  return useFetch(url, {
+    ...options,
+    $fetch: $authorizedFetch as typeof $fetch,
+  })
 }

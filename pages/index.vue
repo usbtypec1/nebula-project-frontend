@@ -1,18 +1,12 @@
 <template>
   <div class="flex flex-col gap-y-4 justify-between h-full">
     <section class="flex flex-col gap-y-4">
-      <section class="grid grid-cols-2 gap-3">
-        <Card
-          v-for="account in accountsResponse!.accounts"
-          :header="account.name"
-          :key="account.id"
-        >
-          <template #title
-            ><span class="pi pi-money-bill"></span> {{ account.name }}</template
-          >
-          <template #content> {{ account.balance }} сом </template>
-        </Card>
-      </section>
+      <PageSection>
+        <MainPageAccountList
+          :accounts-response="accountsResponse!"
+          @created="refresh"
+        />
+      </PageSection>
       <SettingsMenubar />
 
       <div class="flex flex-col gap-y-4">
@@ -23,13 +17,13 @@
     </section>
     <section>
       <DevOnly>
-        <NuxtLink :to="{ name: 'add-record' }">
+        <NuxtLink :to="{ name: 'transactions-create' }">
           <Button label="Добавить запись" fluid />
         </NuxtLink>
       </DevOnly>
       <MainButton
         text="Добавить запись"
-        @click="navigateTo({ name: 'add-record' })"
+        @click="navigateTo({ name: 'transactions-create' })"
       />
     </section>
   </div>
@@ -39,7 +33,6 @@
 import { MainButton } from "vue-tg"
 import type { AccountsResponse } from "~/types/accounts"
 
-const { data: accountsResponse } = await useAuthorizedFetch<AccountsResponse>(
-  "/v1/accounting/accounts/"
-)
+const { data: accountsResponse, refresh } =
+  await useAuthorizedFetch<AccountsResponse>("/v1/accounting/accounts/")
 </script>
