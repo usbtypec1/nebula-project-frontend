@@ -26,19 +26,13 @@ const items: Item[] = [
   {
     label: "Категории",
     icon: "pi pi-bars",
-    severity: "success",
-    action: async () => await navigateTo({ name: "categories" }),
-  },
-  {
-    label: "Аккаунты",
-    icon: "pi pi-money-bill",
     severity: "help",
-    action: async () => await navigateTo({ name: "accounts" }),
+    action: async () => await navigateTo({ name: "categories" }),
   },
   {
     label: "История",
     icon: "pi pi-clock",
-    severity: "secondary",
+    severity: "info",
     action: async () => await navigateTo({ name: "transactions" }),
   },
   {

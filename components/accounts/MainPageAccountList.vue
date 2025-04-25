@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-x-auto scrollbar-hide">
-    <div class="flex w-max gap-x-2 scrollbar-hide">
+    <div class="flex w-max gap-x-2 scrollbar-hide pb-2">
       <Card
         v-for="account in accountsResponse.accounts"
         :header="account.name"

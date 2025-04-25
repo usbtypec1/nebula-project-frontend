@@ -33,6 +33,7 @@ const onSubmit = async (event: AccountCreateEvent) => {
     async onResponse({ response }) {
       if (response.ok) {
         emit("created")
+        visible.value = false
       } else {
         showAlert("Не удалось создать аккаунт")
       }
