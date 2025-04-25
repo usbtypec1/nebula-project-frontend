@@ -39,12 +39,7 @@
 import { MainButton } from "vue-tg"
 import type { AccountsResponse } from "~/types/accounts"
 
-const runtimeConfig = useRuntimeConfig()
-const { data: accountsResponse } = await useFetch<AccountsResponse>(
-  "/v1/accounting/accounts/",
-  {
-    baseURL: runtimeConfig.public.apiBaseUrl,
-    credentials: "include",
-  }
+const { data: accountsResponse } = await useAuthorizedFetch<AccountsResponse>(
+  "/v1/accounting/accounts/"
 )
 </script>

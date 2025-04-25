@@ -7,12 +7,20 @@
 <script setup lang="ts">
 import { useWebApp } from "vue-tg"
 
-const { initData } = useWebApp()
+let { initData } = useWebApp()
 
-const { login } = useAuth()
+const { login, refresh, refreshToken, isAuthenticated } = useAuth()
 
 onMounted(async () => {
-  await login(initData)
-  await navigateTo({ name: "index" })
+  if (refreshToken.value) {
+    await refresh()
+  } else if (initData && initData.length > 0) {
+    await login(initData)
+  }
+  if (isAuthenticated.value) {
+    await navigateTo({ name: "index" })
+  } else {
+    await navigateTo({ name: "auth-failed" })
+  }
 })
 </script>

@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-await navigateTo({ name: "auth-verify" });
+// await navigateTo({ name: "auth-verify" });
 </script>
