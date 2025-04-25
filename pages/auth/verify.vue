@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { useWebApp } from "vue-tg"
 
-let { initData } = useWebApp()
+const { initData } = useWebApp()
 
 const { login, refresh, refreshToken, isAuthenticated } = useAuth()
 
