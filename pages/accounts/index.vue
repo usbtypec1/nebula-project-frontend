@@ -18,14 +18,13 @@ import { useWebAppPopup, BackButton } from "vue-tg"
 
 const { showAlert } = useWebAppPopup()
 
-const runtimeConfig = useRuntimeConfig()
+const { $authorizedFetch } = useNuxtApp()
+
 const { data: accountsResponse, refresh } = await useAccountList()
 
 const onDeleteAccount = async (accountId: number) => {
-  await $fetch(`/v1/accounting/accounts/${accountId}/`, {
-    baseURL: runtimeConfig.public.apiBaseUrl,
+  await $authorizedFetch(`/v1/accounting/accounts/${accountId}/`, {
     method: "DELETE",
-    credentials: "include",
     async onResponse({ response }) {
       if (!response.ok) {
         showAlert("Не удалось удалить аккаунт")

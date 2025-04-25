@@ -20,13 +20,11 @@
 import { BackButton } from "vue-tg"
 import type { CategoryCreateEvent } from "~/types/categories"
 
-const runtimeConfig = useRuntimeConfig()
+const { $authorizedFetch } = useNuxtApp()
 
 const onSubmit = async (event: CategoryCreateEvent) => {
-  await $fetch("/v1/accounting/categories/", {
-    baseURL: runtimeConfig.public.apiBaseUrl,
+  await $authorizedFetch("/v1/accounting/categories/", {
     method: "POST",
-    credentials: "include",
     body: {
       name: event.name,
       type: event.type,

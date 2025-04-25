@@ -8,7 +8,7 @@
     @submit="onSubmit"
   >
     <div class="flex flex-col gap-y-3">
-      <p class="text-lg font-semibold">Создать категорию</p>
+      <p class="text-lg font-semibold">Создать аккаунт</p>
       <FormField name="name" v-slot="$field" class="flex flex-col gap-y-1">
         <FloatLabel variant="on">
           <InputText input-id="name" fluid />
@@ -23,6 +23,7 @@
         name="initialBalance"
         v-slot="$field"
         class="flex flex-col gap-y-1"
+        :initial-value="0"
       >
         <FloatLabel variant="on">
           <InputNumber input-id="initialBalance" fluid />
@@ -32,6 +33,22 @@
           $field.error?.message
         }}</Message>
       </FormField>
+
+      <FormField
+        name="isPublic"
+        v-slot="$field"
+        class="flex flex-col gap-y-1"
+        :initial-value="false"
+      >
+        <div class="flex items-center gap-x-2">
+          <InputSwitch input-id="isPublic" />
+          <label for="isPublic">Публичный аккаунт</label>
+        </div>
+        <Message v-if="$field.invalid" variant="simple" severity="error">{{
+          $field.error?.message
+        }}</Message>
+      </FormField>
+
       <Button type="submit" label="Сохранить" fluid />
     </div>
   </Form>
@@ -51,7 +68,8 @@ const resolver = ref(
   zodResolver(
     z.object({
       name: z.string({ message: "Введите название аккаунта" }).max(64),
-      initialBalance: z.number().default(0),
+      initialBalance: z.number({ message: "Введите первоначальный баланс " }),
+      isPublic: z.boolean({ message: "Выберите тип аккаунта" }),
     })
   )
 )

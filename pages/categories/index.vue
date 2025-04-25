@@ -15,21 +15,18 @@
 
 <script setup lang="ts">
 import type { Category } from "~/types/categories"
-import { useWebAppPopup, BackButton } from "vue-tg";
+import { useWebAppPopup, BackButton } from "vue-tg"
+
+const { $authorizedFetch } = useNuxtApp()
 
 const { showAlert } = useWebAppPopup()
 
-const runtimeConfig = useRuntimeConfig()
-const { data: categories, refresh: refreshCategories } = await useFetch(
-  "/v1/accounting/categories/",
-  {
-    baseURL: runtimeConfig.public.apiBaseUrl,
+const { data: categories, refresh: refreshCategories } =
+  await useAuthorizedFetch<Category[]>("/v1/accounting/categories/", {
     transform(data: { categories: Category[] }): Category[] {
       return data.categories
     },
-    credentials: "include",
-  }
-)
+  })
 
 const rootCategories = computed((): Category[] => {
   if (!categories.value) return []
@@ -37,10 +34,8 @@ const rootCategories = computed((): Category[] => {
 })
 
 const onDeleteCategory = async (categoryId: number) => {
-  await $fetch(`/v1/accounting/categories/${categoryId}/`, {
-    baseURL: runtimeConfig.public.apiBaseUrl,
+  await $authorizedFetch(`/v1/accounting/categories/${categoryId}/`, {
     method: "DELETE",
-    credentials: "include",
     async onResponse({ response }) {
       if (!response.ok) {
         showAlert("Не удалось удалить категорию")

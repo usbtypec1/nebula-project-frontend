@@ -12,16 +12,15 @@ import { useWebAppPopup } from "vue-tg"
 
 const { showAlert } = useWebAppPopup()
 
-const runtimeConfig = useRuntimeConfig()
+const { $authorizedFetch } = useNuxtApp()
 
 const onSubmit = async (event: AccountCreateEvent) => {
-  await $fetch("/v1/accounting/accounts/", {
-    baseURL: runtimeConfig.public.apiBaseUrl,
+  await $authorizedFetch("/v1/accounting/accounts/", {
     method: "POST",
-    credentials: "include",
     body: {
       name: event.name,
       initial_balance: event.initialBalance,
+      is_public: event.isPublic,
     },
     async onResponse({ response }) {
       if (response.ok) {

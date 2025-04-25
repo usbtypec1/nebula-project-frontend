@@ -15,4 +15,5 @@ export interface AccountsResponse {
 export interface AccountCreateEvent {
   name: string
   initialBalance: number
+  isPublic: boolean
 }

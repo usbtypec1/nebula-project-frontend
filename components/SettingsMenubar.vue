@@ -45,7 +45,7 @@ const items: Item[] = [
     label: "Импорт/экспорт",
     icon: "pi pi-save",
     severity: "contrast",
-    action: async () => await navigateTo({ name: "accounts" }),
+    action: async () => await navigateTo({ name: "import-export" }),
   },
 ]
 </script>
