@@ -7,7 +7,7 @@
     >
       <Card
         :header="account.name"
-        v-for="(account, accountIndex) in group"
+        v-for="account in group"
         :key="account.id"
       >
         <template #title>
