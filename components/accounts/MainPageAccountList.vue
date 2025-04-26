@@ -1,32 +1,54 @@
 <template>
-  <div class="overflow-x-auto scrollbar-hide">
-    <div class="flex w-max gap-x-2 scrollbar-hide pb-2">
+  <div class="overflow-x-auto flex gap-x-4 snap-x snap-mandatory pb-2">
+    <div
+      v-for="(group, groupIndex) in groupedAccounts"
+      :key="groupIndex"
+      class="grid grid-cols-2 grid-rows-2 gap-4 min-w-screen snap-start"
+    >
       <Card
-        v-for="account in accountsResponse.accounts"
         :header="account.name"
+        v-for="(account, accountIndex) in group"
         :key="account.id"
-        class="min-w-40 max-w-64"
       >
-        <template #title
-          ><span class="pi pi-money-bill"></span> {{ account.name }}</template
-        >
+        <template #title>
+          <span class="pi pi-money-bill"></span> {{ account.name }}
+        </template>
         <template #content> {{ account.balance }} сом </template>
       </Card>
+
+      <Button
+        v-if="shouldInsertButton(groupIndex, group.length)"
+        icon="pi pi-plus"
+        text
+        icon-pos="top"
+        label="Создать аккаунт"
+        severity="success"
+        @click="visible = true"
+      />
+    </div>
+
+    <div
+      v-if="shouldAddSeparateButton"
+      class="flex items-center justify-center min-w-screen snap-center"
+    >
       <Button
         icon="pi pi-plus"
-        outlined
+        text
+        icon-pos="top"
+        label="Создать аккаунт"
         severity="success"
         @click="visible = true"
       />
     </div>
   </div>
+
   <AccountCreateDialog v-model:visible="visible" @created="emit('created')" />
 </template>
 
 <script setup lang="ts">
-import { type AccountsResponse } from "~/types/accounts"
+import { type Account, type AccountsResponse } from "~/types/accounts"
 
-defineProps<{
+const props = defineProps<{
   accountsResponse: AccountsResponse
 }>()
 
@@ -35,4 +57,12 @@ const emit = defineEmits<{
 }>()
 
 const visible = ref<boolean>(false)
+
+const GROUP_MAX_SIZE = 4
+
+const { groupedAccounts, shouldAddSeparateButton, shouldInsertButton } =
+  useGroupedAccounts(
+    toRef(() => props.accountsResponse.accounts),
+    GROUP_MAX_SIZE,
+  )
 </script>

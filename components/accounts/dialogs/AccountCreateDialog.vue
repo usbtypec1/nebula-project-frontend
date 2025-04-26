@@ -35,7 +35,15 @@ const onSubmit = async (event: AccountCreateEvent) => {
         emit("created")
         visible.value = false
       } else {
-        showAlert("Не удалось создать аккаунт")
+        if (response.status === 409) {
+          showAlert("Аккаунт с таким именем уже существует")
+        } else if (response.status === 400) {
+          showAlert("Некорректные данные")
+        } else if (response.status === 403) {
+          showAlert("Недостаточно прав для создания аккаунта")
+        } else if (response.status === 500) {
+          showAlert("Ошибка сервера")
+        }
       }
     },
   })
