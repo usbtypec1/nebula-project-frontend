@@ -4,6 +4,11 @@ export const useAccountList = () => {
   return useAuthorizedFetch<AccountsResponse>("/v1/accounting/accounts/")
 }
 
+export const useAccountById = (accountId: number) => {
+  const url = `/v1/accounting/accounts/${accountId}/`
+  return useAuthorizedFetch<Account>(url)
+}
+
 export const useGroupedAccounts = (
   accounts: Ref<Account[]>,
   maxSize: number
