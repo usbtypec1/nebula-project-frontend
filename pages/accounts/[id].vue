@@ -1,8 +1,8 @@
 <template>
   <div>
     {{ account }}
-    <SecondaryButton text="Изменить" />
-    <MainButton text="Добавить запись" />
+    <SecondaryButton text="Изменить" :has-shine-effect="true" />
+    <MainButton text="Добавить запись" :has-shine-effect="true" />
   </div>
 </template>
 
