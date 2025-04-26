@@ -6,6 +6,7 @@
     :validate-on-value-update="false"
     :resolver
     class="flex flex-col gap-3"
+    @submit="onSubmit"
   >
     <FormField name="fromAccountId" v-slot="$field">
       <FloatLabel variant="on">
@@ -41,7 +42,12 @@
 
     <FormField name="amount" v-slot="$field">
       <FloatLabel variant="on">
-        <InputNumber fluid :input-id="amountInputId" />
+        <InputNumber
+          fluid
+          :input-id="amountInputId"
+          mode="currency"
+          currency="KGS"
+        />
         <label :for="amountInputId">Сумма</label>
       </FloatLabel>
       <Message v-if="$field.error" variant="simple" :severity="'error'">
@@ -74,12 +80,18 @@
 </template>
 
 <script setup lang="ts">
+import type { FormSubmitEvent } from "@primevue/forms"
 import { zodResolver } from "@primevue/forms/resolvers/zod"
 import { z } from "zod"
 import type { Account } from "~/types/accounts"
+import type { TransferCreateEvent } from "~/types/transfers"
 
 const props = defineProps<{
   accounts: Account[]
+}>()
+
+const emit = defineEmits<{
+  submit: [event: TransferCreateEvent]
 }>()
 
 const fromAccountIdInputId = useId()
@@ -100,4 +112,9 @@ const resolver = zodResolver(
     description: z.string().max(1024).nullable(),
   })
 )
+
+const onSubmit = ({ values, valid }: FormSubmitEvent) => {
+  if (!valid) return
+  emit("submit", values as TransferCreateEvent)
+}
 </script>

@@ -24,3 +24,10 @@ export interface TransactionsGroupedByDate {
   date: string
   transactions: Transaction[]
 }
+
+export interface TransactionCreateEvent {
+  categoryId: number
+  amount: number
+  date: Date
+  description: string | null
+}

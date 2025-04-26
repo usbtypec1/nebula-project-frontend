@@ -17,13 +17,13 @@
     </section>
     <section>
       <DevOnly>
-        <NuxtLink :to="{ name: 'transactions-create' }">
+        <NuxtLink :to="{ name: 'record-create' }">
           <Button label="Добавить запись" fluid />
         </NuxtLink>
       </DevOnly>
       <MainButton
         text="Добавить запись"
-        @click="navigateTo({ name: 'transactions-create' })"
+        @click="navigateTo({ name: 'record-create' })"
       />
     </section>
   </div>

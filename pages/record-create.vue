@@ -6,7 +6,7 @@
       :options="recordTypeOptions"
       v-model="recordType"
     >
-      <template #option="{ option }" >
+      <template #option="{ option }">
         <i :class="option.icon"></i>
         <span>{{ option.label }}</span>
       </template>
@@ -16,6 +16,8 @@
         recordType === RecordTypeValue.Expense ||
         recordType === RecordTypeValue.Income
       "
+      :categories="categories!"
+      :record-type="recordType"
     />
     <TransferCreateForm
       v-else-if="recordType === RecordTypeValue.Transfer"
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import { RecordTypeValue } from "~/types/record-types"
 
+const { data: categories } = await useCategoryList()
 const { data: accountListResponse } = await useAccountList()
 
 interface RecordType {
@@ -52,5 +55,5 @@ const recordTypeOptions: RecordType[] = [
     value: RecordTypeValue.Transfer,
   },
 ]
-const recordType = ref()
+const recordType = ref(recordTypeOptions[0].value)
 </script>
