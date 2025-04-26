@@ -1,11 +1,9 @@
-export const useCategories = () => {
-  const runtimeConfig = useRuntimeConfig()
+import type { Category } from "~/types/categories"
 
-  const { data, status } = useFetch("/v1/accounting/categories/", {
-    baseURL: runtimeConfig.public.apiBaseUrl,
-    method: "GET",
-    credentials: "include",
+export const useCategoryList = () => {
+  return useAuthorizedFetch<Category[]>("/v1/accounting/categories/", {
+    transform: (data: { categories: Category[] }): Category[] => {
+      return data.categories
+    },
   })
-
-  return { data, status }
 }

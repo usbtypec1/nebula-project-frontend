@@ -60,9 +60,10 @@
 import { Form, FormField } from "@primevue/forms"
 import { zodResolver } from "@primevue/forms/resolvers/zod"
 import { z } from "zod"
+import type { Category } from "~/types/categories";
 
 const props = defineProps<{
-  categories: any[]
+  categories: Category[]
 }>()
 
 const options = [

@@ -24,23 +24,33 @@ export function useAuth() {
 
       accessToken.value = responseData.access
       refreshToken.value = responseData.refresh
-    } catch (error) {}
+    } catch (error) {
+      logout()
+    }
   }
 
   const logout = () => {
-    // Пока что оставим пустым, можно будет добавить очищение/редирект
+    accessToken.value = null
+    refreshToken.value = null
   }
 
   const refresh = async () => {
     if (!refreshToken.value) throw new Error("No refresh token")
 
-    const responseData = await $fetch<RefreshResponse>("/auth/token/refresh/", {
-      baseURL: runtimeConfig.public.apiBaseUrl,
-      method: "POST",
-      body: { refresh: refreshToken.value },
-    })
-
-    accessToken.value = responseData.access
+    try {
+      const responseData = await $fetch<RefreshResponse>(
+        "/auth/token/refresh/",
+        {
+          baseURL: runtimeConfig.public.apiBaseUrl,
+          method: "POST",
+          body: { refresh: refreshToken.value },
+        }
+      )
+      accessToken.value = responseData.access
+      refreshToken.value = responseData.refresh
+    } catch (error) {
+      logout()
+    }
   }
 
   return {
