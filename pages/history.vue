@@ -42,7 +42,6 @@
 <script setup lang="ts">
 import { useTransactionList } from "~/composables/transactions";
 import { CategoryType } from "~/types/categories"
-import type { Transaction } from "~/types/transactions"
 
 const period = ref<Date>()
 

@@ -5,7 +5,7 @@
       :key="date"
     >
       <template #title>
-        <span class="text-md">{{ date }}</span>
+        <span class="text-md">{{ format(parseISO(date), "dd.MM.yy") }}</span>
       </template>
       <template #content>
         <div class="flex flex-col gap-y-4">
@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import { format, parse, parseISO } from "date-fns"
 import type {
   Transaction,
   TransactionsGroupedByDate,
