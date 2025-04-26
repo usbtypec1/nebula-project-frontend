@@ -3,11 +3,12 @@
     {{ account }}
     <SettingsButton />
     <MainButton text="Добавить запись" :has-shine-effect="true" />
+    <BackButton @click="navigateTo({ name: 'index' })" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { SettingsButton, MainButton } from "vue-tg"
+import { SettingsButton, BackButton, MainButton } from "vue-tg"
 
 const route = useRoute()
 
