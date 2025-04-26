@@ -3,7 +3,8 @@
     <div
       v-for="(group, groupIndex) in groupedAccounts"
       :key="groupIndex"
-      class="grid grid-cols-2 grid-rows-2 gap-4 min-w-screen snap-start"
+      class="grid grid-cols-2 gap-4 min-w-screen snap-start"
+      :class="[accountsResponse.accounts.length <= 2 ? 'grid-rows-1' : 'grid-rows-2']"
     >
       <NuxtLink
         v-for="account in group"
