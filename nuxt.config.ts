@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-  modules: ["@primevue/nuxt-module", "motion-v/nuxt"],
+  modules: ["@primevue/nuxt-module"],
   primevue: {
     options: {
       theme: {
