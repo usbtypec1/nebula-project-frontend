@@ -1,13 +1,13 @@
 <template>
   <div>
     {{ account }}
-    <SecondaryButton text="Изменить" :has-shine-effect="true" />
+    <SettingsButton />
     <MainButton text="Добавить запись" :has-shine-effect="true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { SecondaryButton, MainButton } from "vue-tg"
+import { SettingsButton, MainButton } from "vue-tg"
 
 const route = useRoute()
 
