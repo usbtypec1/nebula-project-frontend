@@ -26,6 +26,7 @@ export interface TransactionsGroupedByDate {
 }
 
 export interface TransactionCreateEvent {
+  accountId: number
   categoryId: number
   amount: number
   date: Date

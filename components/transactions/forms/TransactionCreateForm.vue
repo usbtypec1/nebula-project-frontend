@@ -8,6 +8,22 @@
   >
     <div class="flex flex-col gap-y-3">
       <p class="text-lg font-semibold">Добавить запись</p>
+      <FormField name="accountId" v-slot="$field">
+        <FloatLabel variant="on">
+          <Select
+            :options="accounts"
+            option-label="name"
+            option-value="id"
+            fluid
+            :input-id="accountIdInputId"
+          />
+          <label :for="accountIdInputId">Аккаунт</label>
+        </FloatLabel>
+        <Message v-if="$field.error" variant="simple" :severity="'error'">
+          {{ $field.error.message }}
+        </Message>
+      </FormField>
+
       <FormField
         name="categoryId"
         v-slot="$field"
@@ -83,12 +99,14 @@
 import { Form, FormField, type FormSubmitEvent } from "@primevue/forms"
 import { zodResolver } from "@primevue/forms/resolvers/zod"
 import { z } from "zod"
+import type { Account } from "~/types/accounts"
 import { CategoryType, type Category } from "~/types/categories"
 import { RecordTypeValue } from "~/types/record-types"
 import type { TransactionCreateEvent } from "~/types/transactions"
 
 const props = defineProps<{
   categories: Category[]
+  accounts: Account[]
   recordType: RecordTypeValue
 }>()
 
@@ -96,6 +114,7 @@ const emit = defineEmits<{
   submit: [event: TransactionCreateEvent]
 }>()
 
+const accountIdInputId = useId()
 const categoryIdInputId = useId()
 const amountInputId = useId()
 const descriptionInputId = useId()
@@ -115,6 +134,7 @@ const recordTypeCategories = computed(() => {
 
 const resolver = zodResolver(
   z.object({
+    accountId: z.number({ message: "Выберите аккаунт" }),
     categoryId: z.number({ message: "Выберите категорию" }),
     amount: z
       .number({ message: "Введите сумму" })
@@ -124,8 +144,9 @@ const resolver = zodResolver(
   })
 )
 
-const onSubmit = ({ values, valid }: FormSubmitEvent) => {
+const onSubmit = ({ values, valid, reset }: FormSubmitEvent) => {
   if (!valid) return
   emit("submit", values as TransactionCreateEvent)
+  reset()
 }
 </script>

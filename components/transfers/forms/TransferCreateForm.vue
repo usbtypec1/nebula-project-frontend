@@ -101,16 +101,31 @@ const dateInputId = useId()
 const descriptionInputId = useId()
 
 const resolver = zodResolver(
-  z.object({
-    fromAccountId: z.number({ message: "Выберите аккаунт" }),
-    toAccountId: z.number({ message: "Выберите аккаунт" }),
-    amount: z
-      .number({ message: "Введите сумму" })
-      .positive("Сумма должна быть больше 0")
-      .max(1_000_000, "Сумма не может превышать 1 000 000"),
-    date: z.date({ message: "Введите дату" }),
-    description: z.string().max(1024).nullable(),
-  })
+  z
+    .object({
+      fromAccountId: z.number({ message: "Выберите аккаунт" }),
+      toAccountId: z.number({ message: "Выберите аккаунт" }),
+      amount: z
+        .number({ message: "Введите сумму" })
+        .positive("Сумма должна быть больше 0")
+        .max(1_000_000, "Сумма не может превышать 1 000 000"),
+      date: z.date({ message: "Введите дату" }),
+      description: z.string().max(1024).nullable(),
+    })
+    .superRefine((data, ctx) => {
+      if (data.fromAccountId === data.toAccountId) {
+        ctx.addIssue({
+          path: ["fromAccountId"],
+          message: "Аккаунты должны быть разными",
+          code: "custom",
+        })
+        ctx.addIssue({
+          path: ["toAccountId"],
+          message: "Аккаунты должны быть разными",
+          code: "custom",
+        })
+      }
+    })
 )
 
 const onSubmit = ({ values, valid }: FormSubmitEvent) => {
