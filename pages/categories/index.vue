@@ -6,7 +6,6 @@
         <Button label="Создать категорию" fluid />
       </NuxtLink>
     </PageSection>
-    <BackButton @click="navigateTo({ name: 'index' })" />
   </div>
 </template>
 

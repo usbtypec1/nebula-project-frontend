@@ -6,7 +6,6 @@
           <Button label="Назад" severity="secondary" icon="pi pi-arrow-left" />
         </NuxtLink>
       </DevOnly>
-      <BackButton @click="navigateTo({ name: 'index' })" />
     </div>
   </template>
   

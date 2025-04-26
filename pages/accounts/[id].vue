@@ -2,12 +2,11 @@
   <div>
     {{ account }}
     <SettingsButton />
-    <BackButton @click="navigateTo({ name: 'index' })" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { SettingsButton, BackButton, useMainButton } from "vue-tg"
+import { SettingsButton, useMainButton } from "vue-tg"
 
 const route = useRoute()
 

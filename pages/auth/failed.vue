@@ -6,8 +6,8 @@
   </template>
   
   <script setup lang="ts">
-  import { useWebApp, MainButton } from "vue-tg";
+  import { useMiniApp, MainButton } from "vue-tg";
   
-  const { close } = useWebApp();
+  const { close } = useMiniApp();
   </script>
   

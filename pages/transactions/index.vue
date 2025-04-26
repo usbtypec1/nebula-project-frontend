@@ -36,8 +36,6 @@
     </div>
 
     <TransactionListDataView :transactions="transactions" />
-
-    <BackButton @click="navigateTo({ name: 'index' })" />
   </div>
 </template>
 

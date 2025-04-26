@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { useWebApp } from "vue-tg"
+import { useMiniApp } from "vue-tg"
 
-const { initData } = useWebApp()
+const { initData } = useMiniApp()
 
 const { login, refresh, refreshToken, isAuthenticated } = useAuth()
 
