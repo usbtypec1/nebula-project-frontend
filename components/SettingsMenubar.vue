@@ -36,6 +36,12 @@ const items: Item[] = [
     action: async () => await navigateTo({ name: "history" }),
   },
   {
+    label: "Курсы валют",
+    icon: "pi pi-money-bill",
+    severity: "warning",
+    action: async () => await navigateTo({ name: "fx-rates" }),
+  },
+  {
     label: "Импорт/экспорт",
     icon: "pi pi-save",
     severity: "contrast",
