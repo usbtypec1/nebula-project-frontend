@@ -22,6 +22,7 @@ interface TransactionListParams {
   categoryType?: CategoryType
   fromDate?: string
   toDate?: string
+  accountIds?: number[]
 }
 
 export const useTransactionList = ({
@@ -30,6 +31,7 @@ export const useTransactionList = ({
   categoryType,
   fromDate,
   toDate,
+  accountIds,
 }: TransactionListParams) => {
   return useAuthorizedFetch<TransactionListResponse>("/v1/accounting/transactions/", {
     query: {
@@ -38,6 +40,7 @@ export const useTransactionList = ({
       category_type: categoryType,
       from_date: fromDate,
       to_date: toDate,
+      account_ids: accountIds,
     },
   })
 }

@@ -19,7 +19,24 @@
               <p>{{ transaction.category_name }}</p>
             </div>
             <div>
-              <p class="font-semibold">KGS {{ transaction.amount }}</p>
+              <p
+                class="font-semibold"
+                :class="[
+                  transaction.category_type === CategoryType.Expense
+                    ? 'text-red-500'
+                    : 'text-emerald-500',
+                ]"
+              >
+                <span v-if="transaction.category_type === CategoryType.Expense"
+                  >-</span
+                >
+                <span v-else>+</span>
+                <span>
+                  {{
+                    currencyFormatter.format(Number(transaction.amount))
+                  }}</span
+                >
+              </p>
             </div>
           </div>
         </div>
@@ -30,10 +47,16 @@
 
 <script setup lang="ts">
 import { format, parse, parseISO } from "date-fns"
+import { CategoryType } from "~/types/categories"
 import type {
   Transaction,
   TransactionsGroupedByDate,
 } from "~/types/transactions"
+
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "KGS",
+})
 
 const emit = defineEmits<{
   delete: [id: number]
