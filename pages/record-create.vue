@@ -26,6 +26,9 @@
       :accounts="accountListResponse!.accounts"
       @submit="onCreateTransfer"
     />
+    <Message v-else icon="pi pi-info-circle" severity="info">
+      Выберите тип записи
+    </Message>
   </div>
 </template>
 
