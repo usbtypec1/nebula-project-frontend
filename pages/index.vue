@@ -16,21 +16,12 @@
       </div>
     </section>
     <section>
-      <DevOnly>
-        <NuxtLink :to="{ name: 'record-create' }">
-          <Button label="Добавить запись" fluid />
-        </NuxtLink>
-      </DevOnly>
-      <MainButton
-        text="Добавить запись"
-        @click="navigateTo({ name: 'record-create' })"
-      />
+      <RecordCreateButton/>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { MainButton } from "vue-tg"
 import type { AccountsResponse } from "~/types/accounts"
 
 const { data: accountsResponse, refresh } =
