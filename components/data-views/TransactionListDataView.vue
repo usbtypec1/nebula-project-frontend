@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-4">
+    <Message v-if="transactions.length === 0" severity="warn" icon="pi pi-exclamation-triangle">Нет транзакций</Message>
     <Card
       v-for="{ transactions, date } in transactionsGroupedByDate"
       :key="date"
@@ -46,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { format, parse, parseISO } from "date-fns"
+import { format, parseISO } from "date-fns"
 import { CategoryType } from "~/types/categories"
 import type {
   Transaction,
