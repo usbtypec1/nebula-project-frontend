@@ -1,6 +1,11 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <Message v-if="transactions.length === 0" severity="warn" icon="pi pi-exclamation-triangle">Нет транзакций</Message>
+    <Message
+      v-if="transactions.length === 0"
+      severity="warn"
+      icon="pi pi-exclamation-triangle"
+      >Нет транзакций</Message
+    >
     <Card
       v-for="{ transactions, date } in transactionsGroupedByDate"
       :key="date"
@@ -10,36 +15,39 @@
       </template>
       <template #content>
         <div class="flex flex-col gap-y-4">
-          <div
+          <NuxtLink
             v-for="transaction in transactions"
             :key="transaction.id"
-            class="flex justify-between items-start"
+            :to="{ name: 'transactions-id', params: { id: transaction.id } }"
           >
-            <div>
-              <p class="font-semibold">{{ transaction.account_name }}</p>
-              <p>{{ transaction.category_name }}</p>
-            </div>
-            <div>
-              <p
-                class="font-semibold"
-                :class="[
-                  transaction.category_type === CategoryType.Expense
-                    ? 'text-red-500'
-                    : 'text-emerald-500',
-                ]"
-              >
-                <span v-if="transaction.category_type === CategoryType.Expense"
-                  >-</span
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="font-semibold">{{ transaction.account_name }}</p>
+                <p>{{ transaction.category_name }}</p>
+              </div>
+              <div>
+                <p
+                  class="font-semibold"
+                  :class="[
+                    transaction.category_type === CategoryType.Expense
+                      ? 'text-red-500'
+                      : 'text-emerald-500',
+                  ]"
                 >
-                <span v-else>+</span>
-                <span>
-                  {{
-                    currencyFormatter.format(Number(transaction.amount))
-                  }}</span
-                >
-              </p>
+                  <span
+                    v-if="transaction.category_type === CategoryType.Expense"
+                    >-</span
+                  >
+                  <span v-else>+</span>
+                  <span>
+                    {{
+                      currencyFormatter.format(Number(transaction.amount))
+                    }}</span
+                  >
+                </p>
+              </div>
             </div>
-          </div>
+          </NuxtLink>
         </div>
       </template>
     </Card>
