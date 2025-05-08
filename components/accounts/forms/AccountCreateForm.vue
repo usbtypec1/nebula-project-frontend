@@ -6,6 +6,7 @@
     :validate-on-submit="true"
     :validate-on-mount="false"
     @submit="onSubmit"
+    :initial-values="initialValues"
   >
     <div class="flex flex-col gap-y-3 my-3">
       <FormField name="name" v-slot="$field" class="flex flex-col gap-y-1">
@@ -22,7 +23,6 @@
         name="initialBalance"
         v-slot="$field"
         class="flex flex-col gap-y-1"
-        :initial-value="0"
       >
         <FloatLabel variant="on">
           <InputNumber input-id="initialBalance" fluid />
@@ -37,7 +37,6 @@
         name="isPublic"
         v-slot="$field"
         class="flex flex-col gap-y-1"
-        :initial-value="false"
       >
         <div class="flex items-center gap-x-2">
           <ToggleSwitch input-id="isPublic" />
@@ -63,15 +62,29 @@ const emit = defineEmits<{
   submit: [event: AccountCreateEvent]
 }>()
 
-const resolver = ref(
-  zodResolver(
-    z.object({
-      name: z.string({ message: "Введите название аккаунта" }).max(64),
-      initialBalance: z.number({ message: "Введите первоначальный баланс " }),
-      isPublic: z.boolean({ message: "Выберите тип аккаунта" }),
-    })
-  )
+interface InitialValues {
+  name?: string
+  initialBalance?: number
+  isPublic?: boolean
+}
+
+const props = defineProps<{
+  initialValues?: InitialValues
+}>()
+
+const resolver = zodResolver(
+  z.object({
+    name: z.string({ message: "Введите название аккаунта" }).max(64),
+    initialBalance: z.number({ message: "Введите первоначальный баланс " }),
+    isPublic: z.boolean({ message: "Выберите тип аккаунта" }),
+  })
 )
+
+const initialValues = computed(() => ({
+  name: props.initialValues?.name ?? "Продукты",
+  initialBalance: props.initialValues?.initialBalance ?? 0,
+  isPublic: props.initialValues?.isPublic ?? false,
+}))
 
 const onSubmit = ({ values, valid }: FormSubmitEvent) => {
   if (valid) {

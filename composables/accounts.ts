@@ -38,3 +38,11 @@ export const useGroupedAccounts = (
     shouldAddSeparateButton,
   }
 }
+
+export const useAccountPublicLink = (accountId: number) => {
+  const runtimeConfig = useRuntimeConfig()
+  const url = computed(() => {
+    return `${runtimeConfig.public.miniAppUrl}?startapp=account-${accountId}`
+  })
+  return { url }
+}

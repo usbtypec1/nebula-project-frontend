@@ -1,8 +1,27 @@
 <template>
   <div class="flex flex-col gap-4 mb-8">
     <header class="flex justify-between">
-      <PageHeader :text="account!.name" />
-      <Button label="Изменить" text size="small" icon="pi pi-pen-to-square" />
+      <div>
+        <PageHeader :text="account!.name" />
+        <div v-if="account!.is_public" class="flex items-center">
+          <PageSubheader text="Публичный аккаунт" />
+          <Button
+            v-if="isSupported"
+            @click="copyPublicAccountUrl"
+            icon="pi pi-copy"
+            size="small"
+            text
+            severity="secondary"
+          />
+        </div>
+      </div>
+      <Button
+        @click="isEditDialogVisible = true"
+        label="Изменить"
+        text
+        size="small"
+        icon="pi pi-pen-to-square"
+      />
     </header>
     <Card>
       <template #title>
@@ -19,18 +38,26 @@
       :transactions="transactionListResponse!.transactions"
     />
     <RecordCreateButton />
+    <AccountEditDialog
+      v-model:visible="isEditDialogVisible"
+      :account="account!"
+      @edit="refresh"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useMainButton } from "vue-tg"
+import { useMainButton, usePopup } from "vue-tg"
 import { parseISO, format } from "date-fns"
 import { CategoryType } from "~/types/categories"
+import { useClipboard } from "@vueuse/core"
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "KGS",
 })
+
+const isEditDialogVisible = ref(false)
 
 const route = useRoute()
 
@@ -73,7 +100,19 @@ const chartOptions = ref({
 
 const accountId = Number(route.params.id as string)
 
-const { data: account } = await useAccountById(accountId)
+const { url: publicAccountUrl } = useAccountPublicLink(accountId)
+
+const { copy, isSupported } = useClipboard({
+  source: publicAccountUrl,
+})
+const { showAlert } = usePopup()
+
+const copyPublicAccountUrl = async () => {
+  await copy(publicAccountUrl.value)
+  await showAlert?.("✅ Ссылка на этот аккаунт скопирована")
+}
+
+const { data: account, refresh } = await useAccountById(accountId)
 const { data: transactionListResponse } = await useTransactionList({
   accountIds: [accountId],
 })

@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-  modules: ["@primevue/nuxt-module"],
+  modules: ["@primevue/nuxt-module", "@vueuse/nuxt"],
   primevue: {
     options: {
       theme: {
@@ -40,6 +40,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.NUXT_API_BASE_URL?.replace(/\/$/, ""),
+      miniAppUrl: process.env.NUXT_MINI_APP_URL,
     },
   },
 })
