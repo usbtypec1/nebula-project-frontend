@@ -31,8 +31,6 @@
       :transactions="transactionListResponse!.transactions"
       :specific-transaction-visible="false"
     />
-    <RecordCreateButton />
-    />
   </div>
 </template>
 
