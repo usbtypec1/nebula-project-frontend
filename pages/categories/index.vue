@@ -11,11 +11,11 @@
 
 <script setup lang="ts">
 import type { Category } from "~/types/categories"
-import { useWebAppPopup, BackButton } from "vue-tg"
+import { usePopup } from "vue-tg"
 
 const { $authorizedFetch } = useNuxtApp()
 
-const { showAlert } = useWebAppPopup()
+const { showAlert } = usePopup()
 
 const { data: categories, refresh: refreshCategories } =
   await useAuthorizedFetch<Category[]>("/v1/accounting/categories/", {
@@ -34,7 +34,7 @@ const onDeleteCategory = async (categoryId: number) => {
     method: "DELETE",
     async onResponse({ response }) {
       if (!response.ok) {
-        showAlert("Не удалось удалить категорию")
+        showAlert?.("Не удалось удалить категорию")
       } else {
         await refreshCategories()
       }
