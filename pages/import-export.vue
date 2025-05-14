@@ -25,9 +25,8 @@
         checkmark
       />
     </PageSection>
-    {{ query }}
-
-</div>
+    <Button label="Выгрузить в csv" fluid />
+  </div>
 </template>
 
 <script setup lang="ts">
