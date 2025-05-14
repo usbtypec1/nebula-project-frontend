@@ -10,11 +10,14 @@
       <SettingsMenubar />
 
       <div class="flex flex-col gap-y-4">
-        <h4 class="font-semibold">Статистика</h4>
-        <IncomeExpenseChart :transactions="transactionsPage!.transactions" />
-        <ExpensesByCategoryChart
-          :transactions="transactionsPage!.transactions"
-        />
+        <template v-if="transactionsPage!.transactions.length > 0">
+          <h4 class="font-semibold">Статистика</h4>
+          <IncomeExpenseChart :transactions="transactionsPage!.transactions" />
+          <ExpensesByCategoryChart
+            :transactions="transactionsPage!.transactions"
+          />
+        </template>
+        <Message v-else icon="pi pi-exclaimation-triangle">Добавьте вашу первую запись</Message>
       </div>
     </section>
     <section>
