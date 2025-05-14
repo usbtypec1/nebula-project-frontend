@@ -15,39 +15,38 @@
       </template>
       <template #content>
         <div class="flex flex-col gap-y-4">
-          <NuxtLink
+          <div
+            class="flex justify-between items-start"
             v-for="transaction in transactions"
             :key="transaction.id"
             :to="{ name: 'transactions-id', params: { id: transaction.id } }"
+            @click="onLoad(transaction.id)"
           >
-            <div class="flex justify-between items-start">
-              <div>
-                <p class="font-semibold">{{ transaction.account_name }}</p>
-                <p>{{ transaction.category_name }}</p>
-              </div>
-              <div>
-                <p
-                  class="font-semibold"
-                  :class="[
-                    transaction.category_type === CategoryType.Expense
-                      ? 'text-red-500'
-                      : 'text-emerald-500',
-                  ]"
-                >
-                  <span
-                    v-if="transaction.category_type === CategoryType.Expense"
-                    >-</span
-                  >
-                  <span v-else>+</span>
-                  <span>
-                    {{
-                      currencyFormatter.format(Number(transaction.amount))
-                    }}</span
-                  >
-                </p>
-              </div>
+            <div>
+              <p class="font-semibold">{{ transaction.account_name }}</p>
+              <p>{{ transaction.category_name }}</p>
             </div>
-          </NuxtLink>
+            <div>
+              <p
+                class="font-semibold"
+                :class="[
+                  transaction.category_type === CategoryType.Expense
+                    ? 'text-red-500'
+                    : 'text-emerald-500',
+                ]"
+              >
+                <span v-if="transaction.category_type === CategoryType.Expense"
+                  >-</span
+                >
+                <span v-else>+</span>
+                <span>
+                  {{
+                    currencyFormatter.format(Number(transaction.amount))
+                  }}</span
+                >
+              </p>
+            </div>
+          </div>
         </div>
       </template>
     </Card>
@@ -71,13 +70,23 @@ const emit = defineEmits<{
   delete: [id: number]
 }>()
 
-const props = defineProps<{
+const { transactions, specificTransactionVisible = true } = defineProps<{
   transactions: Transaction[]
+  specificTransactionVisible: boolean
 }>()
+
+const onLoad = async (transactionId: number) => {
+  if (specificTransactionVisible) {
+    await navigateTo({
+      name: "transactions-id",
+      params: { id: transactionId },
+    })
+  }
+}
 
 const transactionsGroupedByDate = computed((): TransactionsGroupedByDate[] => {
   const dateToTransactions: Record<string, Transaction[]> = {}
-  for (const transaction of props.transactions) {
+  for (const transaction of transactions) {
     const date = transaction.date.split("T")[0]
     if (!dateToTransactions[date]) {
       dateToTransactions[date] = []

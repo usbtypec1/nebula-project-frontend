@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { useMiniApp } from "vue-tg"
 
-const { initData } = useMiniApp()
+const { initData, initDataUnsafe } = useMiniApp()
 
 const { login, refresh, refreshToken, isAuthenticated } = useAuth()
 
@@ -18,7 +18,12 @@ onMounted(async () => {
     await login(initData)
   }
   if (isAuthenticated.value) {
-    await navigateTo({ name: "index" })
+    if (initDataUnsafe.start_param?.startsWith("account")) {
+      const accountId = Number(initDataUnsafe.start_param.split('-')[1])
+      await navigateTo({ name: "accounts-id-readonly", params: { id: accountId } })
+    } else {
+      await navigateTo({ name: "index" })
+    }
   } else {
     await navigateTo({ name: "auth-failed" })
   }
