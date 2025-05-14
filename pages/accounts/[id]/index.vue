@@ -36,6 +36,7 @@
     </Card>
     <TransactionListDataView
       :transactions="transactionListResponse!.transactions"
+      :specific-transaction-visible="true"
     />
     <RecordCreateButton />
     <AccountEditDialog
@@ -178,7 +179,4 @@ const data = computed(() => ({
     },
   ],
 }))
-const { show } = useMainButton()
-
-onMounted(show)
 </script>
