@@ -1,18 +1,6 @@
 <template>
   <div>
     <CategoryCreateForm @submit="onSubmit" />
-    <DevOnly>
-      <NuxtLink :to="{ name: 'categories' }">
-        <Button
-          label="Назад"
-          icon="pi pi-arrow-left"
-          severity="secondary"
-          fluid
-          class="my-2"
-        />
-      </NuxtLink>
-    </DevOnly>
-    <BackButton @click="navigateTo({ name: 'categories' })" />
   </div>
 </template>
 
