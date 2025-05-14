@@ -11,18 +11,22 @@
 
       <div class="flex flex-col gap-y-4">
         <h4 class="font-semibold">Статистика</h4>
-        <IncomeExpenseChart />
-        <ExpensesByCategoryChart />
+        <IncomeExpenseChart :transactions="transactionsPage!.transactions" />
+        <ExpensesByCategoryChart
+          :transactions="transactionsPage!.transactions"
+        />
       </div>
     </section>
     <section>
-      <RecordCreateButton/>
+      <RecordCreateButton />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { AccountsResponse } from "~/types/accounts"
+
+const { data: transactionsPage } = await useTransactionList({ take: 1000 })
 
 const { data: accountsResponse, refresh } =
   await useAuthorizedFetch<AccountsResponse>("/v1/accounting/accounts/")
